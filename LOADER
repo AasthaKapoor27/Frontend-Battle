@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loading to L Zoom Transition</title>
+  <style>
+    body {
+      margin: 0;
+      background: black;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+
+    #timer {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      color: white;
+      font-size: 2.5rem;
+      letter-spacing: 10px;
+    }
+
+    .button {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 200px;
+      height: 60px;
+      background: gray;
+      overflow: hidden;
+      transition: 0.5s ease;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .loading-bar {
+      height: 100%;
+      background: white;
+      transition: width 0.1s;
+    }
+
+    .l-shape {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 120px;
+      height: 120px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-start;
+    }
+
+    .l-vert {
+      width: 40px;
+      height: 100px;
+      background: white;
+      position: relative;
+      top: -40px; /* Moved upward */
+    }
+
+    .l-hori {
+      width: 80px;
+      height: 40px;
+      background: white;
+      position: absolute;
+      left: 40px;
+      bottom: 0;
+    }
+
+    .junction {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background: black;
+      left: 0; /* Keep only the left side box */
+      bottom: 0;
+      z-index: 2;
+    }
+
+    .zoomed {
+      transform: translate(-50%, -50%) scale(10);
+      transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+      opacity: 0;
+    }
+
+    .image-view {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #eaeaea;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+
+    .image-view img {
+      max-width: 90%;
+      border-radius: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<div id="timer">000</div>
+
+<div class="button" id="button">
+  <div class="loading-bar" id="loadingBar"></div>
+</div>
+
+<div class="l-shape" id="lShape" style="display: none;">
+  <div class="l-vert"></div>
+  <div class="l-hori"></div>
+  <div class="junction"></div>
+</div>
+
+<div class="image-view" id="imageView">
+  <img src="https://thefwa.com/dyn/resources/Case_Model_Case/thumbnail/6/16126/1695135386/6509b59b34a57fwa1-1076-x-672.png" alt="Opened Image">
+</div>
+
+<script>
+  let count = 0;
+  const timer = document.getElementById('timer');
+  const loadingBar = document.getElementById('loadingBar');
+  const button = document.getElementById('button');
+  const lShape = document.getElementById('lShape');
+  const imageView = document.getElementById('imageView');
+
+  const interval = setInterval(() => {
+    if (count <= 100) {
+      timer.textContent = count.toString().padStart(3, '0');
+      loadingBar.style.width = count + '%';
+      count++;
+    } else {
+      clearInterval(interval);
+
+      button.style.transition = 'transform 0.5s ease';
+      button.style.transform = 'translate(-50%, -50%) scale(0)';
+
+      setTimeout(() => {
+        button.style.display = 'none';
+        lShape.style.display = 'flex';
+
+        setTimeout(() => {
+          lShape.classList.add('zoomed');
+          setTimeout(() => {
+            imageView.style.display = 'flex';
+          }, 1000);
+        }, 300);
+      }, 500);
+    }
+  }, 50);
+</script>
+
+</body>
+</html>
