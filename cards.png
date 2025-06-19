@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Brand Kits</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #1a1a1a;
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .card-container {
+      position: relative;
+      background: #121212;
+      padding: 20px;
+      border-radius: 16px;
+      width: 320px;
+      color: white;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    /* Glowing Border Effect */
+    .card-container::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, #ff00ff, #00ffff, #ff00ff, #00ffff);
+      background-size: 400% 400%;
+      animation: borderGlow 6s linear infinite;
+      z-index: -1;
+      border-radius: 20px;
+    }
+
+    .card-container::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #121212;
+      border-radius: 14px;
+      z-index: -1;
+      margin: 2px;
+    }
+
+    @keyframes borderGlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    h2 {
+      margin-bottom: 15px;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .brand-card {
+      background: #1e1e1e;
+      border-radius: 12px;
+      padding: 12px 16px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .left-section {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .icon-stack {
+      display: flex;
+      position: relative;
+      width: 32px;
+      height: 32px;
+    }
+
+    .icon-stack .circle {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 2px solid #1e1e1e;
+      position: absolute;
+    }
+
+    .circle1 { background: #00c389; left: 2px; top: 9px; }
+    .circle2 { background: white; left: 9px; top: 5px; }
+    .circle3 { background: #ff3c3c; left: 17px; top: 10px; }
+
+    .brand-name {
+      font-size: 14px;
+    }
+
+    /* Improved right-side menu icon */
+    .menu-icon {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+      cursor: pointer;
+      padding: 4px;
+      border-radius: 4px;
+      transition: background-color 0.2s;
+    }
+
+    .menu-icon:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .menu-icon span {
+      display: block;
+      width: 4px;
+      height: 4px;
+      background-color: #bbb;
+      border-radius: 50%;
+      transition: all 0.2s;
+    }
+
+    .menu-icon:hover span {
+      background-color: #fff;
+    }
+
+    /* Checkbox */
+    .checkbox {
+      width: 18px;
+      height: 18px;
+      border-radius: 4px;
+      border: 2px solid #444;
+      background-color: #121212;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .checkbox:hover {
+      border-color: #666;
+    }
+
+    .checkbox.checked {
+      background-color: #7f5af0;
+      border-color: #7f5af0;
+    }
+
+    .checkbox.checked::after {
+      content: '✓';
+      font-size: 12px;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="card-container">
+    <h2>Brand Kits</h2>
+
+    <!-- Brand 1 -->
+    <div class="brand-card">
+      <div class="left-section">
+        <div class="checkbox"></div>
+        <div class="icon-stack">
+          <div class="circle circle1"></div>
+          <div class="circle circle2"></div>
+        </div>
+        <div class="brand-name">ECorp</div>
+      </div>
+      <div class="menu-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+
+    <!-- Brand 2 -->
+    <div class="brand-card">
+      <div class="left-section">
+        <div class="checkbox"></div>
+        <div class="icon-stack">
+          <div class="circle circle2"></div>
+          <div class="circle circle1" style="background: orange;"></div>
+        </div>
+        <div class="brand-name">ICorp</div>
+      </div>
+      <div class="menu-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+
+    <!-- Brand 3 (Selected) -->
+    <div class="brand-card">
+      <div class="left-section">
+        <div class="checkbox checked"></div>
+        <div class="icon-stack">
+          <div class="circle circle3"></div>
+          <div class="circle circle2"></div>
+        </div>
+        <div class="brand-name">The Agency</div>
+      </div>
+      <div class="menu-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
