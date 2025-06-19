@@ -1,0 +1,72 @@
+--html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pearl Touch Ripple</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <script src="script.js"></script>
+</body>
+</html>
+
+
+--css
+
+body {
+  margin: 0;
+  height: 100vh;
+  background: #f2f7fc; /* subtle light background */
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+}
+
+.ripple {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  transform: scale(0);
+  pointer-events: none;
+  animation: ripple-animation 1s ease-out forwards;
+  background: radial-gradient(circle,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(180, 225, 255, 0.6) 40%,
+    rgba(255, 170, 240, 0.4) 70%,
+    rgba(200, 150, 255, 0.2) 100%);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.6),
+              0 0 40px rgba(200, 170, 255, 0.4);
+}
+
+@keyframes ripple-animation {
+  to {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+
+--javascript
+
+function createRipple(x, y) {
+  const ripple = document.createElement('div');
+  ripple.className = 'ripple';
+  ripple.style.left = `${x - 100}px`;
+  ripple.style.top = `${y - 100}px`;
+  document.body.appendChild(ripple);
+
+  setTimeout(() => {
+    ripple.remove();
+  }, 1000);
+}
+
+['click', 'touchstart'].forEach(evt => {
+  document.body.addEventListener(evt, function (e) {
+    const x = e.touches ? e.touches[0].clientX : e.clientX;
+    const y = e.touches ? e.touches[0].clientY : e.clientY;
+    createRipple(x, y);
+  });
+});
